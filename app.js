@@ -39,8 +39,8 @@ function initMenu() {
 }
 
 function updateStockUI() {
-    stockCountSpan.textContent = stockList.length;
-    stockModeBtn.disabled = stockList.length === 0;
+    if (stockCountSpan) stockCountSpan.textContent = stockList.length;
+    if (stockModeBtn) stockModeBtn.disabled = stockList.length === 0;
 }
 
 function setupRangeButtons() {
@@ -86,7 +86,6 @@ function showQuestion() {
 
     const q = currentSessionQuestions[currentIndex];
     
-    // Reset UI
     explanationBox.classList.add('hidden');
     choicesContainer.innerHTML = '';
     actionButtonsContainer.innerHTML = '';
@@ -94,12 +93,10 @@ function showQuestion() {
     qIdTag.textContent = `No.${q.id}`;
     questionText.textContent = q.question;
     
-    // Progress
     const total = currentSessionQuestions.length;
     questionCounter.textContent = `No.${q.id} (問 ${currentIndex + 1} / ${total})`;
     progressBar.style.width = `${(currentIndex / total) * 100}%`;
 
-    // Render Choices
     q.choices.forEach((choice) => {
         const choiceBtn = document.createElement('button');
         choiceBtn.className = 'choice-btn';
@@ -109,14 +106,16 @@ function showQuestion() {
     });
 }
 
-// Handle Answer Selection
+// Handle Answer Selection (配列形式の複数正解にも対応)
 function handleAnswer(selectedChoice, question, clickedBtn) {
-    // Disable all choice buttons after click
     const allBtns = choicesContainer.querySelectorAll('.choice-btn');
     allBtns.forEach(b => b.disabled = true);
 
-    const ansPrefix = question.answer; 
-    const isCorrect = selectedChoice.startsWith(ansPrefix) || selectedChoice.includes(ansPrefix);
+    // 正解判定チェック
+    let isCorrect = false;
+    let correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
+    
+    isCorrect = correctAnswers.some(ans => selectedChoice.startsWith(ans) || selectedChoice.includes(ans));
 
     actionButtonsContainer.innerHTML = '';
 
@@ -126,7 +125,6 @@ function handleAnswer(selectedChoice, question, clickedBtn) {
         resultBadge.textContent = "⭕ 正解！";
         resultBadge.className = "result-badge correct-text";
         
-        // 正解した場合の2つの選択ボタン
         const dualGrid = document.createElement('div');
         dualGrid.className = 'btn-dual-grid';
 
@@ -155,14 +153,13 @@ function handleAnswer(selectedChoice, question, clickedBtn) {
         resultBadge.textContent = "❌ 不正解...";
         resultBadge.className = "result-badge incorrect-text";
         
-        // Highlight correct button
+        // 正解ボタンをハイライト表示
         allBtns.forEach(b => {
-            if (b.textContent.startsWith(ansPrefix) || b.textContent.includes(ansPrefix)) {
+            if (correctAnswers.some(ans => b.textContent.startsWith(ans) || b.textContent.includes(ans))) {
                 b.classList.add('correct');
             }
         });
         
-        // 不正解時は自動ストック保存
         addToStock(question);
 
         const nextBtn = document.createElement('button');
@@ -175,7 +172,7 @@ function handleAnswer(selectedChoice, question, clickedBtn) {
         actionButtonsContainer.appendChild(nextBtn);
     }
 
-    correctAnswerText.textContent = question.answer;
+    correctAnswerText.textContent = correctAnswers.join(' / ');
     explanationText.textContent = question.explanation;
     explanationBox.classList.remove('hidden');
 }
@@ -185,7 +182,6 @@ function nextQuestion() {
     showQuestion();
 }
 
-// Stock Helpers (localStorage)
 function addToStock(q) {
     if (!stockList.some(item => item.id === q.id)) {
         stockList.push(q);
@@ -203,19 +199,17 @@ function saveStock() {
     updateStockUI();
 }
 
-// Interruption / Return to menu
-interruptBtn.onclick = returnToMenu;
-homeBtn.onclick = returnToMenu;
+if (interruptBtn) interruptBtn.onclick = returnToMenu;
+if (homeBtn) homeBtn.onclick = returnToMenu;
 
 function returnToMenu() {
     quizScreen.classList.add('hidden');
     resultScreen.classList.add('hidden');
     menuScreen.classList.remove('hidden');
-    homeBtn.classList.add('hidden');
+    if (homeBtn) homeBtn.classList.add('hidden');
     updateStockUI();
 }
 
-// Finish Session
 function finishSession() {
     progressBar.style.width = '100%';
     quizScreen.classList.add('hidden');
@@ -226,15 +220,15 @@ function finishSession() {
     resultDetail.textContent = `正答率: ${Math.round((score / total) * 100)}% | 現在ストックされている苦手問題: ${stockList.length}問`;
 }
 
-resultMenuBtn.onclick = returnToMenu;
+if (resultMenuBtn) resultMenuBtn.onclick = returnToMenu;
 
-// Stock Mode Start
-stockModeBtn.onclick = () => {
-    if (stockList.length > 0) {
-        const sortedStock = [...stockList].sort((a, b) => a.id - b.id);
-        startSession(sortedStock);
-    }
-};
+if (stockModeBtn) {
+    stockModeBtn.onclick = () => {
+        if (stockList.length > 0) {
+            const sortedStock = [...stockList].sort((a, b) => a.id - b.id);
+            startSession(sortedStock);
+        }
+    };
+}
 
-// Initialize
 initMenu();
