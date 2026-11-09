@@ -106,12 +106,11 @@ function showQuestion() {
     });
 }
 
-// Handle Answer Selection (配列形式の複数正解にも対応)
+// Handle Answer Selection
 function handleAnswer(selectedChoice, question, clickedBtn) {
     const allBtns = choicesContainer.querySelectorAll('.choice-btn');
     allBtns.forEach(b => b.disabled = true);
 
-    // 正解判定チェック
     let isCorrect = false;
     let correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
     
@@ -153,7 +152,6 @@ function handleAnswer(selectedChoice, question, clickedBtn) {
         resultBadge.textContent = "❌ 不正解...";
         resultBadge.className = "result-badge incorrect-text";
         
-        // 正解ボタンをハイライト表示
         allBtns.forEach(b => {
             if (correctAnswers.some(ans => b.textContent.startsWith(ans) || b.textContent.includes(ans))) {
                 b.classList.add('correct');

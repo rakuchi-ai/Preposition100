@@ -7,93 +7,79 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
+    <div class="container">
         <!-- Header -->
-        <header class="app-header">
-            <h1>前置詞問題強化100問</h1>
-            <button id="home-btn" class="icon-btn hidden" title="メニューへ戻る">🏠 メニュー</button>
+        <header class="header">
+            <h1 class="title">前置詞問題強化100問</h1>
+            <button id="home-btn" class="btn btn-secondary hidden">🏠 ホームへ</button>
         </header>
 
         <!-- Menu Screen -->
         <main id="menu-screen" class="screen">
-            <h2>演習モードの選択</h2>
+            <p class="description">出題範囲を選択して演習を開始してください。</p>
             
-            <div class="top-modes">
-                <button id="stock-mode-btn" class="btn btn-stock">
-                    ⭐ 間違えた・自信のない問題のみ解く (<span id="stock-count">0</span>)
-                </button>
-                <button class="btn btn-all-mode range-btn" data-mode="all">
-                    📚 全100問演習
-                </button>
+            <div class="range-grid">
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="1" data-end="10">No.1 - 10</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="11" data-end="20">No.11 - 20</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="21" data-end="30">No.21 - 30</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="31" data-end="40">No.31 - 40</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="41" data-end="50">No.41 - 50</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="51" data-end="60">No.51 - 60</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="61" data-end="70">No.61 - 70</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="71" data-end="80">No.71 - 80</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="81" data-end="90">No.81 - 90</button>
+                <button class="btn btn-outline range-btn" data-mode="range" data-start="91" data-end="100">No.91 - 100</button>
             </div>
 
-            <div class="divider"><span>または 10問ずつ選択して演習</span></div>
+            <button class="btn btn-primary btn-large range-btn" data-mode="all">全100問を一括挑戦</button>
 
-            <div class="range-grid">
-                <button class="btn range-btn" data-start="1" data-end="10">No. 1 - 10</button>
-                <button class="btn range-btn" data-start="11" data-end="20">No. 11 - 20</button>
-                <button class="btn range-btn" data-start="21" data-end="30">No. 21 - 30</button>
-                <button class="btn range-btn" data-start="31" data-end="40">No. 31 - 40</button>
-                <button class="btn range-btn" data-start="41" data-end="50">No. 41 - 50</button>
-                <button class="btn range-btn" data-start="51" data-end="60">No. 51 - 60</button>
-                <button class="btn range-btn" data-start="61" data-end="70">No. 61 - 70</button>
-                <button class="btn range-btn" data-start="71" data-end="80">No. 71 - 80</button>
-                <button class="btn range-btn" data-start="81" data-end="90">No. 81 - 90</button>
-                <button class="btn range-btn" data-start="91" data-end="100">No. 91 - 100</button>
+            <div class="stock-box">
+                <h3>⭐ 間違えた問題・ストック</h3>
+                <p>現在ストック: <span id="stock-count">0</span> 問</p>
+                <button id="stock-mode-btn" class="btn btn-warning" disabled>ストック問題だけを復習</button>
             </div>
         </main>
 
         <!-- Quiz Screen -->
         <main id="quiz-screen" class="screen hidden">
-            <div class="progress-bar-container">
+            <div class="progress-container">
                 <div id="progress-bar" class="progress-bar"></div>
             </div>
-            
-            <div class="status-bar">
-                <span id="question-counter" class="counter">No. 1 (1 / 10)</span>
-                <button id="interrupt-btn" class="btn btn-secondary btn-sm">⏹ 中断して戻る</button>
+            <div class="quiz-status">
+                <span id="question-counter" class="status-tag"></span>
+                <button id="interrupt-btn" class="btn btn-small btn-secondary">演習を中断</button>
             </div>
 
-            <div class="quiz-card">
-                <div class="question-header">
-                    <span class="q-label">問題</span>
-                    <span id="q-id-tag" class="q-id-tag">No.1</span>
-                </div>
-                <div id="question-text" class="question-text"></div>
+            <div class="card question-card">
+                <span id="q-id-tag" class="badge"></span>
+                <p id="question-text" class="question-text"></p>
+            </div>
 
-                <div id="choices-container" class="choices-container">
-                    <!-- Choice buttons -->
-                </div>
+            <div id="choices-container" class="choices-container"></div>
 
-                <!-- Explanation Area -->
-                <div id="explanation-box" class="explanation-box hidden">
-                    <div id="result-badge" class="result-badge"></div>
-                    <div class="exp-title">【解答】 <span id="correct-answer-text"></span></div>
-                    <div class="exp-body">
-                        <span class="exp-label">【解説】</span>
-                        <p id="explanation-text"></p>
-                    </div>
-
-                    <!-- Action Buttons after answer -->
-                    <div id="action-buttons-container" class="action-buttons-container">
-                        <!-- Rendered dynamically depending on correct/incorrect -->
-                    </div>
+            <div id="explanation-box" class="card explanation-box hidden">
+                <div id="result-badge" class="result-badge"></div>
+                <div class="correct-answer">
+                    <strong>正解:</strong> <span id="correct-answer-text"></span>
                 </div>
+                <div class="explanation-content">
+                    <strong>解説:</strong>
+                    <p id="explanation-text"></p>
+                </div>
+                <div id="action-buttons-container" class="action-buttons"></div>
             </div>
         </main>
 
         <!-- Result Screen -->
         <main id="result-screen" class="screen hidden">
-            <div class="result-card">
-                <h2>🎉 演習完了！</h2>
-                <div class="score-circle">
-                    <span id="score-text">8 / 10</span>
+            <div class="card result-card">
+                <h2>🎉 お疲れ様でした！</h2>
+                <div class="score-display">
+                    <p class="score-label">正解数</p>
+                    <p id="score-text" class="score-val"></p>
                 </div>
                 <p id="result-detail" class="result-detail"></p>
-                
-                <div class="result-actions">
-                    <button id="result-menu-btn" class="btn btn-primary">メニューへ戻る</button>
-                </div>
+                <button id="result-menu-btn" class="btn btn-primary btn-large">メニューへ戻る</button>
             </div>
         </main>
     </div>
