@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前置詞問題強化100問</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>前置詞問題強化100問</h1>
+            <button id="home-btn" class="icon-btn hidden" title="メニューへ戻る">🏠 メニュー</button>
+        </header>
+
+        <!-- Menu Screen -->
+        <main id="menu-screen" class="screen">
+            <h2>演習モードの選択</h2>
+            
+            <div class="top-modes">
+                <button id="stock-mode-btn" class="btn btn-stock">
+                    ⭐ 間違えた・自信のない問題のみ解く (<span id="stock-count">0</span>)
+                </button>
+                <button class="btn btn-all-mode range-btn" data-mode="all">
+                    📚 全100問演習
+                </button>
+            </div>
+
+            <div class="divider"><span>または 10問ずつ選択して演習</span></div>
+
+            <div class="range-grid">
+                <button class="btn range-btn" data-start="1" data-end="10">No. 1 - 10</button>
+                <button class="btn range-btn" data-start="11" data-end="20">No. 11 - 20</button>
+                <button class="btn range-btn" data-start="21" data-end="30">No. 21 - 30</button>
+                <button class="btn range-btn" data-start="31" data-end="40">No. 31 - 40</button>
+                <button class="btn range-btn" data-start="41" data-end="50">No. 41 - 50</button>
+                <button class="btn range-btn" data-start="51" data-end="60">No. 51 - 60</button>
+                <button class="btn range-btn" data-start="61" data-end="70">No. 61 - 70</button>
+                <button class="btn range-btn" data-start="71" data-end="80">No. 71 - 80</button>
+                <button class="btn range-btn" data-start="81" data-end="90">No. 81 - 90</button>
+                <button class="btn range-btn" data-start="91" data-end="100">No. 91 - 100</button>
+            </div>
+        </main>
+
+        <!-- Quiz Screen -->
+        <main id="quiz-screen" class="screen hidden">
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            
+            <div class="status-bar">
+                <span id="question-counter" class="counter">No. 1 (1 / 10)</span>
+                <button id="interrupt-btn" class="btn btn-secondary btn-sm">⏹ 中断して戻る</button>
+            </div>
+
+            <div class="quiz-card">
+                <div class="question-header">
+                    <span class="q-label">問題</span>
+                    <span id="q-id-tag" class="q-id-tag">No.1</span>
+                </div>
+                <div id="question-text" class="question-text"></div>
+
+                <div id="choices-container" class="choices-container">
+                    <!-- Choice buttons -->
+                </div>
+
+                <!-- Explanation Area -->
+                <div id="explanation-box" class="explanation-box hidden">
+                    <div id="result-badge" class="result-badge"></div>
+                    <div class="exp-title">【解答】 <span id="correct-answer-text"></span></div>
+                    <div class="exp-body">
+                        <span class="exp-label">【解説】</span>
+                        <p id="explanation-text"></p>
+                    </div>
+
+                    <!-- Action Buttons after answer -->
+                    <div id="action-buttons-container" class="action-buttons-container">
+                        <!-- Rendered dynamically depending on correct/incorrect -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Result Screen -->
+        <main id="result-screen" class="screen hidden">
+            <div class="result-card">
+                <h2>🎉 演習完了！</h2>
+                <div class="score-circle">
+                    <span id="score-text">8 / 10</span>
+                </div>
+                <p id="result-detail" class="result-detail"></p>
+                
+                <div class="result-actions">
+                    <button id="result-menu-btn" class="btn btn-primary">メニューへ戻る</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
