@@ -5,13 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>前置詞問題強化100問</title>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- 追加：ポータルへ戻るリンク用のCSS -->
+    <style>
+        .back-portal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #64748b;
+            background-color: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .back-portal-link:hover {
+            background-color: #e2e8f0;
+            color: #1e293b;
+        }
+        /* ヘッダー内でのレイアウト調整用 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <!-- Header -->
         <header class="header">
             <h1 class="title">前置詞問題強化100問</h1>
-            <button id="home-btn" class="btn btn-secondary hidden">🏠 ホームへ</button>
+            
+            <!-- 追加：ポータルへ戻るリンク -->
+            <a href="https://rakuchi-ai.github.io/ENGLISH-TOP/" class="back-portal-link">
+                &larr; ポータルに戻る
+            </a>
+            
+            <!-- もともとあったボタン（もしアプリ内の画面遷移用として使う場合は残します） -->
+            <!-- <button id="home-btn" class="btn btn-secondary hidden">🏠 ホームへ</button> -->
         </header>
 
         <!-- Menu Screen -->
