@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="style.css">
     
-    <!-- 追加：ポータルへ戻るリンク用およびUDフォント適用のCSS -->
     <style>
         :root {
             --base-font: "UD Digi Kyokasho N-R", "UD Digital Kyokasho NK-R", "BIZ UDPGothic", "メイリオ", Meiryo, sans-serif;
@@ -41,28 +40,38 @@
             background-color: #e2e8f0;
             color: #1e293b;
         }
-        /* ヘッダー内でのレイアウト調整用 */
-        .header {
+
+        /* ヘッダーのレイアウト調整 */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Header -->
-        <header class="header">
+        <header>
             <h1 class="title">前置詞問題強化100問</h1>
             
-            <!-- 追加：ポータルへ戻るリンク -->
             <a href="https://rakuchi-ai.github.io/ENGLISH-TOP/" class="back-portal-link">
                 &larr; ポータルに戻る
             </a>
+            
+            <button id="home-btn" class="btn btn-secondary hidden">🏠 ホームへ</button>
         </header>
 
         <!-- Menu Screen -->
         <main id="menu-screen" class="screen">
+            <div class="stock-box">
+                <h3>⭐ 間違えた問題・ストック</h3>
+                <p>現在ストック: <span id="stock-count">0</span> 問</p>
+                <button id="stock-mode-btn" class="btn btn-warning" disabled>ストック問題だけを復習</button>
+            </div>
+
             <p class="description">出題範囲を選択して演習を開始してください。</p>
             
             <div class="range-grid">
@@ -79,12 +88,6 @@
             </div>
 
             <button class="btn btn-primary btn-large range-btn" data-mode="all">全100問を一括挑戦</button>
-
-            <div class="stock-box">
-                <h3>⭐ 間違えた問題・ストック</h3>
-                <p>現在ストック: <span id="stock-count">0</span> 問</p>
-                <button id="stock-mode-btn" class="btn btn-warning" disabled>ストック問題だけを復習</button>
-            </div>
         </main>
 
         <!-- Quiz Screen -->
