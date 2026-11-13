@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>前置詞問題強化100問</title>
+    
+    <!-- Google FontsからUD系フォント（BIZ UDPGothic）を読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     
-    <!-- 追加：ポータルへ戻るリンク用のCSS -->
+    <!-- 追加：ポータルへ戻るリンク用およびUDフォント適用のCSS -->
     <style>
+        :root {
+            --base-font: "UD Digi Kyokasho N-R", "UD Digital Kyokasho NK-R", "BIZ UDPGothic", "メイリオ", Meiryo, sans-serif;
+        }
+
+        /* ページ全体および文字を扱う要素にUDフォントを確実に適用 */
+        body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+            font-family: var(--base-font) !important;
+        }
+
         .back-portal-link {
             display: inline-flex;
             align-items: center;
